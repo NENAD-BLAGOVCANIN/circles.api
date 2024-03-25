@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('assignedTo');
             $table->foreign('assignedTo')->references('id')->on('users')->onDelete('cascade');            
             $table->timestamps();
+            $table->boolean('is_deleted')->default(false);
         });
     }
 

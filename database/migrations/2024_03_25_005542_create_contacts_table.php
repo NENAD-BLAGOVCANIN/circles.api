@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->text('description')->nullable();
             $table->string('lead_source')->nullable();
-            $table->boolean('pastClient')->nullable();
+            $table->boolean('past_client')->nullable();
             $table->string('phone')->nullable();
             $table->string('organization')->nullable();
             $table->timestamps();
+            $table->boolean('is_deleted')->default(false);
         });
     }
 

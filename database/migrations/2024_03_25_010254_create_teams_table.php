@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('is_personal');
             $table->timestamps();
-            $table->boolean('is_deleted');
+            $table->boolean('is_deleted')->default(false);
         });
     }
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('lead_source')->nullable();
             $table->timestamps();
+            $table->boolean('is_deleted')->default(false);
         });
     }
 
