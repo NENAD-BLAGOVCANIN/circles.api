@@ -83,4 +83,8 @@ class AuthController extends Controller
         ]);
     }
 
+    public function test(){
+        return response("Success");
+    }
+
 }
