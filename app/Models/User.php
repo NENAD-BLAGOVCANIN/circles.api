@@ -51,6 +51,8 @@ class User extends Authenticatable implements JWTSubject
             $team->is_personal = true;
             $team->save();
 
+            $user->currently_selected_team_id = $team->id;
+            $user->save();
             $user->teams()->attach($team);
         });
     }
