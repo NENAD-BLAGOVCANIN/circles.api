@@ -9,14 +9,12 @@ class TasksController extends Controller
 {
     public function index()
     {
-        // Retrieve all tasks
         $tasks = Task::all();
         return response()->json($tasks);
     }
 
     public function store(Request $request)
     {
-        // Validate request data
         $validatedData = $request->validate([
             'subject' => 'required|string',
             'description' => 'nullable|string',
@@ -40,7 +38,6 @@ class TasksController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validate request data
         $validatedData = $request->validate([
             'subject' => 'required|string',
             'description' => 'nullable|string',

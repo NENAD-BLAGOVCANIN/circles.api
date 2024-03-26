@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\LeadsController;
+
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -34,3 +36,9 @@ Route::post('/tasks', [TasksController::class, 'store']);
 Route::get('/tasks/{id}', [TasksController::class, 'show']);
 Route::put('/tasks/{id}', [TasksController::class, 'update']);
 Route::delete('/tasks/{id}', [TasksController::class, 'destroy']);
+
+Route::get('/leads', [LeadsController::class, 'index']);
+Route::post('/leads', [LeadsController::class, 'store']);
+Route::get('/leads/{id}', [LeadsController::class, 'show']);
+Route::put('/leads/{id}', [LeadsController::class, 'update']);
+Route::delete('/leads/{id}', [LeadsController::class, 'destroy']);
