@@ -18,6 +18,14 @@ class ContactsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
+            'title' => 'nullable|string',
+            'city' => 'nullable|string',
+            'address' => 'nullable|string',
+            'description' => 'nullable|string',
+            'lead_source' => 'nullable|string',
+            'past_client' => 'nullable|boolean',
+            'phone' => 'nullable|string',
+            'organization' => 'nullable|string',
         ]);
 
         $contact = Contact::create($validatedData);
@@ -36,6 +44,14 @@ class ContactsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
+            'title' => 'nullable|string',
+            'city' => 'nullable|string',
+            'address' => 'nullable|string',
+            'description' => 'nullable|string',
+            'lead_source' => 'nullable|string',
+            'past_client' => 'nullable|boolean',
+            'phone' => 'nullable|string',
+            'organization' => 'nullable|string',
         ]);
 
         $contact = Contact::findOrFail($id);
