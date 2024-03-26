@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TasksController;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -26,3 +27,10 @@ Route::post('/teams', [TeamController::class, 'store']);
 Route::get('/teams/{id}', [TeamController::class, 'show']);
 Route::put('/teams/{id}', [TeamController::class, 'update']);
 Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
+
+
+Route::get('/tasks', [TasksController::class, 'index']);
+Route::post('/tasks', [TasksController::class, 'store']);
+Route::get('/tasks/{id}', [TasksController::class, 'show']);
+Route::put('/tasks/{id}', [TasksController::class, 'update']);
+Route::delete('/tasks/{id}', [TasksController::class, 'destroy']);
