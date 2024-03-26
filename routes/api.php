@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\TeamController;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -19,3 +20,9 @@ Route::get('/contacts/{id}', [ContactsController::class, 'show']);
 Route::put('/contacts/{id}', [ContactsController::class, 'update']);
 Route::delete('/contacts/{id}', [ContactsController::class, 'destroy']);
 
+
+Route::get('/teams', [TeamController::class, 'index']);
+Route::post('/teams', [TeamController::class, 'store']);
+Route::get('/teams/{id}', [TeamController::class, 'show']);
+Route::put('/teams/{id}', [TeamController::class, 'update']);
+Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
