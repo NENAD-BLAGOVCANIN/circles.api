@@ -17,7 +17,7 @@ class ContactsController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $contacts = Contact::where('team_id', '=', $user->currently_selected_team_id)->get();
+        $contacts = Contact::where('team_id', '=', $user->currently_selected_team_id)->orderBy('id', 'desc')->get();
         return response()->json($contacts);
     }
 
