@@ -9,43 +9,53 @@ class LeadsController extends Controller
 {
     public function index()
     {
-        // Retrieve all leads
-        $leads = Lead::all();
+
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $leads = Lead::with('contact')->where('team_id', '=', $user->currently_selected_team_id)->get();
         return response()->json($leads);
     }
 
     public function store(Request $request)
     {
-        // Validate request data
+
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $validatedData = $request->validate([
             'contact_id' => 'required|exists:contacts,id',
             'description' => 'nullable|string',
             'lead_source' => 'nullable|string',
         ]);
 
-        // Create a new lead
         $lead = Lead::create($validatedData);
+        $lead->team_id = $user->currently_selected_team_id;
+        $lead->save();
 
         return response()->json($lead, 201);
     }
 
     public function show($id)
     {
-        // Find a lead by ID
         $lead = Lead::findOrFail($id);
         return response()->json($lead);
     }
 
     public function update(Request $request, $id)
     {
-        // Validate request data
         $validatedData = $request->validate([
             'contact_id' => 'required|exists:contacts,id',
             'description' => 'nullable|string',
             'lead_source' => 'nullable|string',
         ]);
 
-        // Find the lead by ID and update
         $lead = Lead::findOrFail($id);
         $lead->update($validatedData);
 
@@ -54,7 +64,6 @@ class LeadsController extends Controller
 
     public function destroy($id)
     {
-        // Find the lead by ID and delete
         $lead = Lead::findOrFail($id);
         $lead->delete();
 

@@ -15,4 +15,10 @@ class Lead extends Model
         'lead_source',
     ];
 
+
+    public function contact()
+    {
+        return $this->hasOne('App\Models\Contact', 'id', 'contact_id');
+    }
+
 }
