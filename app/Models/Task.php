@@ -14,7 +14,7 @@ class Task extends Model
         'description',
         'lead_id',
         'team_id',
-        'assignedTo',
+        'assigned_to',
     ];
 
 }

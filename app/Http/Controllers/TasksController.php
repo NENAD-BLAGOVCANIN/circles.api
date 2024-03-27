@@ -9,7 +9,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::where('team_id', '=', auth()->user()->currently_selected_team_id)->get();
         return response()->json($tasks);
     }
 
@@ -19,19 +19,18 @@ class TasksController extends Controller
             'subject' => 'required|string',
             'description' => 'nullable|string',
             'lead_id' => 'nullable|exists:leads,id',
-            'team_id' => 'required|exists:teams,id',
-            'assignedTo' => 'required|exists:users,id',
+            'assigned_to' => 'nullable|exists:users,id',
         ]);
 
-        // Create a new task
         $task = Task::create($validatedData);
+        $task->team_id = auth()->user()->currently_selected_team_id;
+        $task->save();
 
         return response()->json($task, 201);
     }
 
     public function show($id)
     {
-        // Find a task by ID
         $task = Task::findOrFail($id);
         return response()->json($task);
     }
@@ -43,10 +42,9 @@ class TasksController extends Controller
             'description' => 'nullable|string',
             'lead_id' => 'nullable|exists:leads,id',
             'team_id' => 'required|exists:teams,id',
-            'assignedTo' => 'required|exists:users,id',
+            'assigned_to' => 'required|exists:users,id',
         ]);
 
-        // Find the task by ID and update
         $task = Task::findOrFail($id);
         $task->update($validatedData);
 
@@ -55,7 +53,6 @@ class TasksController extends Controller
 
     public function destroy($id)
     {
-        // Find the task by ID and delete
         $task = Task::findOrFail($id);
         $task->delete();
 

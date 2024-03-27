@@ -14,10 +14,10 @@ return new class extends Migration
             $table->string('subject');
             $table->text('description')->nullable();;
             $table->foreignId('lead_id')->nullable();
-            $table->unsignedBigInteger('team_id');
-            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');            
-            $table->unsignedBigInteger('assignedTo');
-            $table->foreign('assignedTo')->references('id')->on('users')->onDelete('cascade');            
+            $table->unsignedBigInteger('team_id')->nullable();
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('set null');         
+            $table->unsignedBigInteger('assigned_to')->nullable();
+            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('set null');         
             $table->timestamps();
             $table->boolean('is_deleted')->default(false);
         });

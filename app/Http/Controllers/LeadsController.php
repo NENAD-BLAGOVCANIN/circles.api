@@ -12,11 +12,7 @@ class LeadsController extends Controller
 
         $user = auth()->user();
 
-        if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        $leads = Lead::with('contact')->where('team_id', '=', $user->currently_selected_team_id)->get();
+        $leads = Lead::with('contact')->where('team_id', '=', $user->currently_selected_team_id)->orderBy('id', 'desc')->get();
         return response()->json($leads);
     }
 
@@ -24,10 +20,6 @@ class LeadsController extends Controller
     {
 
         $user = auth()->user();
-
-        if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
 
         $validatedData = $request->validate([
             'contact_id' => 'required|exists:contacts,id',
