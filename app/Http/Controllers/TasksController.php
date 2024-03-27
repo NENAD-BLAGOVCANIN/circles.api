@@ -24,6 +24,7 @@ class TasksController extends Controller
 
         $task = Task::create($validatedData);
         $task->team_id = auth()->user()->currently_selected_team_id;
+        $task->status = Task::STATUS_TODO;
         $task->save();
 
         return response()->json($task, 201);
