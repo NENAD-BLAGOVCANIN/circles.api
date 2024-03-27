@@ -4,17 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class ContactsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::all();
+
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $contacts = Contact::where('team_id', '=', $user->currently_selected_team_id)->get();
         return response()->json($contacts);
     }
 
     public function store(Request $request)
     {
+
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -29,6 +44,8 @@ class ContactsController extends Controller
         ]);
 
         $contact = Contact::create($validatedData);
+        $contact->team_id = $user->currently_selected_team_id;
+        $contact->save();
 
         return response()->json($contact, 201);
     }
