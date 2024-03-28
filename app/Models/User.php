@@ -53,7 +53,6 @@ class User extends Authenticatable implements JWTSubject
         static::created(function ($user) {
             $team = new Team();
             $team->name = $user->name . "'s Team";
-            $team->is_personal = true;
             $team->save();
 
             $user->currently_selected_team_id = $team->id;

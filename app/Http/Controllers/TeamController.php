@@ -18,10 +18,11 @@ class TeamController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'is_personal' => 'required|boolean',
+            'description' => 'nullable|string',
         ]);
 
         $team = Team::create($validatedData);
+        $team->save();
 
         return response()->json($team, 201);
     }
@@ -36,7 +37,7 @@ class TeamController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'is_personal' => 'required|boolean',
+            'description' => 'nullable|string',
         ]);
 
         $team = Team::findOrFail($id);
