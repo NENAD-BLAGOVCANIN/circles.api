@@ -30,6 +30,7 @@ Route::post('/teams', [TeamController::class, 'store']);
 Route::get('/teams/{id}', [TeamController::class, 'show']);
 Route::put('/teams/{id}', [TeamController::class, 'update']);
 Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
+Route::get('/team/members', [TeamController::class, 'teamMembers']);
 
 
 Route::get('/tasks', [TasksController::class, 'index']);

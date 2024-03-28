@@ -13,11 +13,12 @@ class DashboardController extends Controller
 {
     public function getStats(Request $request){
 
+        $team_id = auth()->user()->currently_selected_team_id;
 
-        $teamMemberCount = User::where('currently_selected_team_id', '=', auth()->user()->currently_selected_team_id)->count();
-        $contactCount = Contact::count();
-        $leadCount = Lead::count();
-        $taskCount = Task::count();
+        $teamMemberCount = User::where('currently_selected_team_id', '=', $team_id)->count();
+        $contactCount = Contact::where('team_id', '=', $team_id)->count();
+        $leadCount = Lead::where('team_id', '=', $team_id)->count();
+        $taskCount = Task::where('team_id', '=', $team_id)->count();
 
         $data = [
             "teamMembersCount" => $teamMemberCount,

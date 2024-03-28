@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TeamUser;
 use Illuminate\Http\Request;
 use App\Models\Team;
 
@@ -50,5 +51,14 @@ class TeamController extends Controller
         $team->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function teamMembers(Request $request){
+
+        $team_id = auth()->user()->currently_selected_team_id;
+        $team_members = TeamUser::with('user')->where('team_id', '=', $team_id)->get();
+
+        return response()->json($team_members, 200);
+
     }
 }
