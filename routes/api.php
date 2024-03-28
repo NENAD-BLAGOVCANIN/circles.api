@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -17,6 +18,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('refresh', [AuthController::class, 'refresh'])->middleware('auth:api');
     Route::get('test', [AuthController::class, 'test']);
 });
+
+Route::get('/user/info', [UserController::class, 'info']);
+
 
 Route::get('/contacts', [ContactsController::class, 'index']);
 Route::post('/contacts', [ContactsController::class, 'store']);
