@@ -44,6 +44,17 @@ class TeamController extends Controller
         return response()->json($team, 201);
     }
 
+    public function switchTeam(Request $request){
+        
+        $team_id = $request->get('team_id');
+        $user = auth()->user();
+
+        $user->currently_selected_team_id = $team_id;
+
+        return response()->json(null, 204);
+
+    }
+
     public function show($id)
     {
         $team = Team::findOrFail($id);
