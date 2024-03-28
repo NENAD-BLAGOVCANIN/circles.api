@@ -13,5 +13,10 @@ class Team extends Model
         'name',
         'description',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'team_users');
+    }
     
 }

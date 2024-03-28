@@ -30,6 +30,7 @@ Route::delete('/contacts/{id}', [ContactsController::class, 'destroy']);
 
 
 Route::get('/teams', [TeamController::class, 'index']);
+Route::get('/my-teams', [TeamController::class, 'myTeams']);
 Route::post('/teams', [TeamController::class, 'store']);
 Route::get('/teams/{id}', [TeamController::class, 'show']);
 Route::put('/teams/{id}', [TeamController::class, 'update']);

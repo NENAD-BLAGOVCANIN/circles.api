@@ -14,6 +14,17 @@ class TeamController extends Controller
         return response()->json($teams);
     }
 
+    public function myTeams(Request $request)
+    {
+        $user = auth()->user();
+
+        $teams = Team::whereHas('users', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->get();
+
+        return response()->json($teams);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -21,8 +32,14 @@ class TeamController extends Controller
             'description' => 'nullable|string',
         ]);
 
+        $user = auth()->user();
+
         $team = Team::create($validatedData);
         $team->save();
+
+        $user->currently_selected_team_id = $team->id;
+        $user->save();
+        $user->teams()->attach($team);
 
         return response()->json($team, 201);
     }
@@ -54,7 +71,8 @@ class TeamController extends Controller
         return response()->json(null, 204);
     }
 
-    public function teamMembers(Request $request){
+    public function teamMembers(Request $request)
+    {
 
         $team_id = auth()->user()->currently_selected_team_id;
         $team_members = TeamUser::with('user')->where('team_id', '=', $team_id)->get();
