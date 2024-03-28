@@ -50,8 +50,9 @@ class TeamController extends Controller
         $user = auth()->user();
 
         $user->currently_selected_team_id = $team_id;
+        $user->save();
 
-        return response()->json(null, 204);
+        return response()->json("Success");
 
     }
 
