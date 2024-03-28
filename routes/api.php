@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\LeadsController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::group(['prefix' => 'auth'], function () {
@@ -42,3 +43,5 @@ Route::post('/leads', [LeadsController::class, 'store']);
 Route::get('/leads/{id}', [LeadsController::class, 'show']);
 Route::put('/leads/{id}', [LeadsController::class, 'update']);
 Route::delete('/leads/{id}', [LeadsController::class, 'destroy']);
+
+Route::get('/dashboard/stats', [DashboardController::class, 'getStats']);
