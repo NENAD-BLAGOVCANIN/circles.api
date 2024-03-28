@@ -9,7 +9,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('team_id', '=', auth()->user()->currently_selected_team_id)->get();
+        $tasks = Task::where('team_id', '=', auth()->user()->currently_selected_team_id)->orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
 
