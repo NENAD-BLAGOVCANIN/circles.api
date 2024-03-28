@@ -43,7 +43,7 @@ class TasksController extends Controller
             'description' => 'nullable|string',
             'lead_id' => 'nullable|exists:leads,id',
             'team_id' => 'required|exists:teams,id',
-            'assigned_to' => 'required|exists:users,id',
+            'assigned_to' => 'nullable|exists:users,id',
         ]);
 
         $task = Task::findOrFail($id);
