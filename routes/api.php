@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/teams', [TeamController::class, 'index']);
     Route::get('/my-teams', [TeamController::class, 'myTeams']);
+    Route::get('/team-info', [TeamController::class, 'teamInfo']);
     Route::post('/teams', [TeamController::class, 'store']);
     Route::post('/switch-team', [TeamController::class, 'switchTeam']);
     Route::get('/teams/{id}', [TeamController::class, 'show']);
