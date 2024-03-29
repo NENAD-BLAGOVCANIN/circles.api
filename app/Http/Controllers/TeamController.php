@@ -102,12 +102,14 @@ class TeamController extends Controller
 
     }
 
-    public function inviteLink(Request $request, $invite_link, $user_id, $team_id){
+    public function inviteLink(Request $request){
 
-        $user = User::findOrFail($user_id);
+        $user = auth()->user();
+        $team_id = $request->get('team_id');
         $team = Team::findOrFail($team_id);
+        $invite_code = $request->get('code');
 
-        if ($invite_link == $team->invite_link){
+        if ($invite_code == $team->invite_code){
             $user->teams()->attach($team);
             $user->currently_selected_team_id = $team->id;
             $user->save();
