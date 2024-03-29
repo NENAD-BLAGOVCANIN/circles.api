@@ -68,14 +68,16 @@ class TeamController extends Controller
         return response()->json($team);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
         ]);
 
-        $team = Team::findOrFail($id);
+        $user = auth()->user();
+
+        $team = Team::findOrFail($user->currently_selected_team_id);
         $team->update($validatedData);
 
         return response()->json($team, 200);

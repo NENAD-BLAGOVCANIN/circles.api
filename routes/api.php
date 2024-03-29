@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/teams', [TeamController::class, 'store']);
     Route::post('/switch-team', [TeamController::class, 'switchTeam']);
     Route::get('/teams/{id}', [TeamController::class, 'show']);
-    Route::put('/teams/{id}', [TeamController::class, 'update']);
+    Route::put('/team', [TeamController::class, 'update']);
     Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
     Route::get('/team/members', [TeamController::class, 'teamMembers']);
 
