@@ -31,14 +31,19 @@ class TasksController extends Controller
     }
 
     public function assign(Request $request){
-        $assignee_id = $request->get('assignee_id');
+
+        $user_id = $request->get('user_id');
+
         $task_id = $request->get('task_id');
 
         $task = Task::findOrFail($task_id);
-        $task->assigned_to = $assignee_id;
+        $task->assigned_to = $user_id;
         $task->save();
 
-        return response()->json($task, 201);
+        $updatedTask = Task::with('assignee')->findOrFail($task_id);
+
+
+        return response()->json($updatedTask, 201);
     }
 
     public function show($id)
