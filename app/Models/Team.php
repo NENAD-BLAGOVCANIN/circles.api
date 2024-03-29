@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Team extends Model
 {
@@ -17,6 +18,13 @@ class Team extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'team_users');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($team) {
+            $team->invite_code = Str::random(8);
+        });
     }
     
 }
