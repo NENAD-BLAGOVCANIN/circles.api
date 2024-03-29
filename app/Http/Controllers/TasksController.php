@@ -30,6 +30,17 @@ class TasksController extends Controller
         return response()->json($task, 201);
     }
 
+    public function assign(Request $request){
+        $assignee_id = $request->get('assignee_id');
+        $task_id = $request->get('task_id');
+
+        $task = Task::findOrFail($task_id);
+        $task->assigned_to = $assignee_id;
+        $task->save();
+
+        return response()->json($task, 201);
+    }
+
     public function show($id)
     {
         $task = Task::findOrFail($id);
