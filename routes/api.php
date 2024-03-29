@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('/team', [TeamController::class, 'update']);
     Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
     Route::get('/team/members', [TeamController::class, 'teamMembers']);
+    Route::get('/teams/invite/{invite_code}/{user_id}/{team_id}', [TeamController::class, 'inviteLink']);
 
 
     Route::get('/tasks', [TasksController::class, 'index']);

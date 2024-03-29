@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TeamUser;
 use Illuminate\Http\Request;
 use App\Models\Team;
+use App\Models\User;
 
 class TeamController extends Controller
 {
@@ -100,4 +101,23 @@ class TeamController extends Controller
         return response()->json($team_members, 200);
 
     }
+
+    public function inviteLink(Request $request, $invite_link, $user_id, $team_id){
+
+        $user = User::findOrFail($user_id);
+        $team = Team::findOrFail($team_id);
+
+        if ($invite_link == $team->invite_link){
+            $user->teams()->attach($team);
+            $user->currently_selected_team_id = $team->id;
+            $user->save();
+
+            return response()->json("Success");
+
+        }else{
+            abort(403, 'Access denied.');
+        }
+
+    }
+
 }
