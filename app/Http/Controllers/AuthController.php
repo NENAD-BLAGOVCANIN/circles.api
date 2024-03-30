@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Laravel\Passport\Passport;
 
 class AuthController extends Controller
 {
@@ -82,9 +83,10 @@ class AuthController extends Controller
             ]
         ]);
     }
-
-    public function test(){
-        return response("Success");
+    public function setTokenExpirationTimes()
+    {
+        Passport::tokensExpireIn(now()->addDays(7));
+        Passport::refreshTokensExpireIn(now()->addMonths(6));
     }
 
 }
