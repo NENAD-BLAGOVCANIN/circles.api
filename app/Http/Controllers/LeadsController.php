@@ -31,7 +31,9 @@ class LeadsController extends Controller
         $lead->team_id = $user->currently_selected_team_id;
         $lead->save();
 
-        return response()->json($lead, 201);
+        $newLead = Lead::with('contact')->findOrFail($lead->id);
+
+        return response()->json($newLead, 201);
     }
 
     public function show($id)
